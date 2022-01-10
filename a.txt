@@ -1,0 +1,257 @@
+
+CreateNetworks
+  #change
+    creates a networks table with channel and call_letters columns
+
+CreateShows
+  #change
+    creates a shows table with a name, day, season and genre column
+
+AddNetworkToShows
+  #change
+    updates the shows table to include a network_id column
+
+CreateActors
+  #change
+    creates an actors table with first_name and last_name columns
+
+CreateCharacters
+  #change
+    creates an characters table with name, actor_id, and show_id columns
+
+AddCatchphraseToCharacters
+  #change
+    updates the characters table to include a catchphrase column
+
+Character
+  has a first and last name
+  has a catchphrase
+  #actor
+    returns the actor that the character belongs to
+  #show
+    returns the show that the character belongs to (FAILED - 1)
+    can be used to build its associated show (FAILED - 2)
+  #say_that_thing_you_say
+    returns a string with the character's name and catchphrase (FAILED - 3)
+
+Actor
+  has a first and last name
+  #characters
+    returns a list of characters associated with the actor (FAILED - 4)
+  #shows
+    returns the shows associated with the actor through their characters (FAILED - 5)
+  #full_name
+    returns the actor's full name (FAILED - 6)
+  #list_roles
+    returns a list of roles for the actor using the character name and show name (FAILED - 7)
+
+Show
+  has a name, day, season and genre
+  #characters
+    returns the characters associated with the show (FAILED - 8)
+    can be used to build its characters (FAILED - 9)
+  #network
+    returns the network that the show belongs to (FAILED - 10)
+  #actors_list
+    returns a list of the full names of each actor associated with the show (FAILED - 11)
+
+Network
+  has a channel and call_letters
+  #shows
+    returns the shows associated with the network (FAILED - 12)
+  #sorry
+    apologizes for passing on John Mulaney's Pilot (FAILED - 13)
+
+Failures:
+
+  1) Character#show returns the show that the character belongs to
+     Failure/Error: expect(niles.show).to eq(frasier)
+
+     NoMethodError:
+       undefined method `show' for #<Character:0x0000563775e37fa8>
+       Did you mean?  show_id
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/activemodel-6.1.4/lib/active_model/attribute_methods.rb:469:in `method_missing'
+     # ./spec/models/01_character_spec.rb:25:in `block (3 levels) in <top (required)>'
+     # ./spec/spec_helper.rb:15:in `block (3 levels) in <top (required)>'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/strategy.rb:30:in `cleaning'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:34:in `block (2 levels) in cleaning'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:35:in `cleaning'
+     # ./spec/spec_helper.rb:14:in `block (2 levels) in <top (required)>'
+
+  2) Character#show can be used to build its associated show
+     Failure/Error: jules_cobb.build_show(name: "Cougar Town")
+
+     NoMethodError:
+       undefined method `build_show' for #<Character:0x0000563775eaa0f8>
+       Did you mean?  build_actor
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/activemodel-6.1.4/lib/active_model/attribute_methods.rb:469:in `method_missing'
+     # ./spec/models/01_character_spec.rb:30:in `block (3 levels) in <top (required)>'
+     # ./spec/spec_helper.rb:15:in `block (3 levels) in <top (required)>'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/strategy.rb:30:in `cleaning'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:34:in `block (2 levels) in cleaning'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:35:in `cleaning'
+     # ./spec/spec_helper.rb:14:in `block (2 levels) in <top (required)>'
+
+  3) Character#say_that_thing_you_say returns a string with the character's name and catchphrase
+     Failure/Error: expect(urkel.say_that_thing_you_say).to eq("Steve Urkel always says: Did I do that?")
+
+     NoMethodError:
+       undefined method `say_that_thing_you_say' for #<Character:0x0000563775e756f0>
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/activemodel-6.1.4/lib/active_model/attribute_methods.rb:469:in `method_missing'
+     # ./spec/models/01_character_spec.rb:38:in `block (3 levels) in <top (required)>'
+     # ./spec/spec_helper.rb:15:in `block (3 levels) in <top (required)>'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/strategy.rb:30:in `cleaning'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:34:in `block (2 levels) in cleaning'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:35:in `cleaning'
+     # ./spec/spec_helper.rb:14:in `block (2 levels) in <top (required)>'
+
+  4) Actor#characters returns a list of characters associated with the actor
+     Failure/Error: expect(emilia.characters).to include(khaleesi)
+
+     NoMethodError:
+       undefined method `characters' for #<Actor id: 1, first_name: "Emilia", last_name: "Clarke">
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/activemodel-6.1.4/lib/active_model/attribute_methods.rb:469:in `method_missing'
+     # ./spec/models/02_actor_spec.rb:19:in `block (3 levels) in <top (required)>'
+     # ./spec/spec_helper.rb:15:in `block (3 levels) in <top (required)>'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/strategy.rb:30:in `cleaning'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:34:in `block (2 levels) in cleaning'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:35:in `cleaning'
+     # ./spec/spec_helper.rb:14:in `block (2 levels) in <top (required)>'
+
+  5) Actor#shows returns the shows associated with the actor through their characters
+     Failure/Error: expect(emilia.shows).to include(got)
+
+     NoMethodError:
+       undefined method `shows' for #<Actor id: 1, first_name: "Emilia", last_name: "Clarke">
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/activemodel-6.1.4/lib/active_model/attribute_methods.rb:469:in `method_missing'
+     # ./spec/models/02_actor_spec.rb:26:in `block (3 levels) in <top (required)>'
+     # ./spec/spec_helper.rb:15:in `block (3 levels) in <top (required)>'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/strategy.rb:30:in `cleaning'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:34:in `block (2 levels) in cleaning'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:35:in `cleaning'
+     # ./spec/spec_helper.rb:14:in `block (2 levels) in <top (required)>'
+
+  6) Actor#full_name returns the actor's full name
+     Failure/Error: expect(emilia.full_name).to eq("Emilia Clarke")
+
+     NoMethodError:
+       undefined method `full_name' for #<Actor id: 1, first_name: "Emilia", last_name: "Clarke">
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/activemodel-6.1.4/lib/active_model/attribute_methods.rb:469:in `method_missing'
+     # ./spec/models/02_actor_spec.rb:32:in `block (3 levels) in <top (required)>'
+     # ./spec/spec_helper.rb:15:in `block (3 levels) in <top (required)>'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/strategy.rb:30:in `cleaning'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:34:in `block (2 levels) in cleaning'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:35:in `cleaning'
+     # ./spec/spec_helper.rb:14:in `block (2 levels) in <top (required)>'
+
+  7) Actor#list_roles returns a list of roles for the actor using the character name and show name
+     Failure/Error: expect(emilia.list_roles).to include("Khaleesi - Game of Thrones")
+
+     NoMethodError:
+       undefined method `list_roles' for #<Actor id: 1, first_name: "Emilia", last_name: "Clarke">
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/activemodel-6.1.4/lib/active_model/attribute_methods.rb:469:in `method_missing'
+     # ./spec/models/02_actor_spec.rb:38:in `block (3 levels) in <top (required)>'
+     # ./spec/spec_helper.rb:15:in `block (3 levels) in <top (required)>'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/strategy.rb:30:in `cleaning'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:34:in `block (2 levels) in cleaning'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:35:in `cleaning'
+     # ./spec/spec_helper.rb:14:in `block (2 levels) in <top (required)>'
+
+  8) Show#characters returns the characters associated with the show
+     Failure/Error: expect(simpsons.characters.count).to eq(3)
+
+     NoMethodError:
+       undefined method `characters' for #<Show:0x000056377622ea30>
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/activemodel-6.1.4/lib/active_model/attribute_methods.rb:469:in `method_missing'
+     # ./spec/models/03_show_spec.rb:14:in `block (3 levels) in <top (required)>'
+     # ./spec/spec_helper.rb:15:in `block (3 levels) in <top (required)>'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/strategy.rb:30:in `cleaning'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:34:in `block (2 levels) in cleaning'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:35:in `cleaning'
+     # ./spec/spec_helper.rb:14:in `block (2 levels) in <top (required)>'
+
+  9) Show#characters can be used to build its characters
+     Failure/Error: show.characters.build(name: "Penny")
+
+     NoMethodError:
+       undefined method `characters' for #<Show:0x00005637767890e8>
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/activemodel-6.1.4/lib/active_model/attribute_methods.rb:469:in `method_missing'
+     # ./spec/models/03_show_spec.rb:19:in `block (3 levels) in <top (required)>'
+     # ./spec/spec_helper.rb:15:in `block (3 levels) in <top (required)>'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/strategy.rb:30:in `cleaning'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:34:in `block (2 levels) in cleaning'
+     # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:35:in `cleaning'
+     # ./spec/spec_helper.rb:14:in `block (2 levels) in <top (required)>'
+
+  10) Show#network returns the network that the show belongs to
+      Failure/Error: network = show.build_network(call_letters: "NBC")
+
+      NoMethodError:
+        undefined method `build_network' for #<Show:0x000056377677a660>
+      # /usr/share/rvm/gems/ruby-2.7.4/gems/activemodel-6.1.4/lib/active_model/attribute_methods.rb:469:in `method_missing'
+      # ./spec/models/03_show_spec.rb:28:in `block (3 levels) in <top (required)>'
+      # ./spec/spec_helper.rb:15:in `block (3 levels) in <top (required)>'
+      # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/strategy.rb:30:in `cleaning'
+      # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:34:in `block (2 levels) in cleaning'
+      # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:35:in `cleaning'
+      # ./spec/spec_helper.rb:14:in `block (2 levels) in <top (required)>'
+
+  11) Show#actors_list returns a list of the full names of each actor associated with the show
+      Failure/Error: expect(show.actors_list).to include('Andrew Lincoln')
+
+      NoMethodError:
+        undefined method `actors_list' for #<Show:0x00005637761c4798>
+        Did you mean?  acts_like?
+      # /usr/share/rvm/gems/ruby-2.7.4/gems/activemodel-6.1.4/lib/active_model/attribute_methods.rb:469:in `method_missing'
+      # ./spec/models/03_show_spec.rb:39:in `block (3 levels) in <top (required)>'
+      # ./spec/spec_helper.rb:15:in `block (3 levels) in <top (required)>'
+      # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/strategy.rb:30:in `cleaning'
+      # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:34:in `block (2 levels) in cleaning'
+      # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:35:in `cleaning'
+      # ./spec/spec_helper.rb:14:in `block (2 levels) in <top (required)>'
+
+  12) Network#shows returns the shows associated with the network
+      Failure/Error: expect(nbc.shows).to include(community)
+
+      NoMethodError:
+        undefined method `shows' for #<Network id: 1, call_letters: "NBC", channel: 4>
+      # /usr/share/rvm/gems/ruby-2.7.4/gems/activemodel-6.1.4/lib/active_model/attribute_methods.rb:469:in `method_missing'
+      # ./spec/models/04_network_spec.rb:16:in `block (3 levels) in <top (required)>'
+      # ./spec/spec_helper.rb:15:in `block (3 levels) in <top (required)>'
+      # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/strategy.rb:30:in `cleaning'
+      # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:34:in `block (2 levels) in cleaning'
+      # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:35:in `cleaning'
+      # ./spec/spec_helper.rb:14:in `block (2 levels) in <top (required)>'
+
+  13) Network#sorry apologizes for passing on John Mulaney's Pilot
+      Failure/Error: expect(nbc.sorry).to eq("We're sorry about passing on John Mulaney's pilot")
+
+      NoMethodError:
+        undefined method `sorry' for #<Network id: 1, call_letters: "NBC", channel: 4>
+      # /usr/share/rvm/gems/ruby-2.7.4/gems/activemodel-6.1.4/lib/active_model/attribute_methods.rb:469:in `method_missing'
+      # ./spec/models/04_network_spec.rb:22:in `block (3 levels) in <top (required)>'
+      # ./spec/spec_helper.rb:15:in `block (3 levels) in <top (required)>'
+      # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/strategy.rb:30:in `cleaning'
+      # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:34:in `block (2 levels) in cleaning'
+      # /usr/share/rvm/gems/ruby-2.7.4/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:35:in `cleaning'
+      # ./spec/spec_helper.rb:14:in `block (2 levels) in <top (required)>'
+
+Finished in 0.34643 seconds (files took 0.51215 seconds to load)
+25 examples, 13 failures
+
+Failed examples:
+
+rspec ./spec/models/01_character_spec.rb:22 # Character#show returns the show that the character belongs to
+rspec ./spec/models/01_character_spec.rb:28 # Character#show can be used to build its associated show
+rspec ./spec/models/01_character_spec.rb:36 # Character#say_that_thing_you_say returns a string with the character's name and catchphrase
+rspec ./spec/models/02_actor_spec.rb:17 # Actor#characters returns a list of characters associated with the actor
+rspec ./spec/models/02_actor_spec.rb:24 # Actor#shows returns the shows associated with the actor through their characters
+rspec ./spec/models/02_actor_spec.rb:31 # Actor#full_name returns the actor's full name
+rspec ./spec/models/02_actor_spec.rb:37 # Actor#list_roles returns a list of roles for the actor using the character name and show name
+rspec ./spec/models/03_show_spec.rb:9 # Show#characters returns the characters associated with the show
+rspec ./spec/models/03_show_spec.rb:17 # Show#characters can be used to build its characters
+rspec ./spec/models/03_show_spec.rb:26 # Show#network returns the network that the show belongs to
+rspec ./spec/models/03_show_spec.rb:34 # Show#actors_list returns a list of the full names of each actor associated with the show
+rspec ./spec/models/04_network_spec.rb:14 # Network#shows returns the shows associated with the network
+rspec ./spec/models/04_network_spec.rb:21 # Network#sorry apologizes for passing on John Mulaney's Pilot
+
